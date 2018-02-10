@@ -1,0 +1,16 @@
+h2 Signup
+
+= form_for :user, url: '/users' do |f|
+  .form__group
+    = f.label :email, 'Email'
+    = f.text_field :email
+
+  .form__group
+    = f.label :password, 'Password'
+    = f.password_field :password
+
+  .form__group
+    = f.label :password_confirmation, 'Password Confirmation'
+    = f.password_field :password_confirmation
+
+  = f.submit "Submit"
