@@ -6,4 +6,17 @@ class User < ActiveRecord::Base
                       with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/,
                       message: 'not a valid email format'
                     }
+  has_many :endorsements, foreign_key: :endorsed_user_id, dependent: :delete_all
+  has_many :skills, -> { distinct }, through: :endorsements
+
+  def add_endorsement(name, endorsing_user_id)
+    slug = name.to_s.gsub('&', ' and ').parameterize
+    skill = skills.find { |skill| skill.slug == slug }
+    skill = Skill.create(name: name, slug: slug) unless skill
+
+    endorsements.create(
+      skill_id: skill.id,
+      endorsing_user_id: endorsing_user_id
+    )
+  end
 end

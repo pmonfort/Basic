@@ -1,2 +1,19 @@
 h1
   = @user.email
+
+table
+  - @user.skills.each do |skill|
+    tr
+      td
+        = skill.name
+      td
+        = skill.endorsements_count_by_user(@user.id)
+
+= form_for :skill, url: '/skills' do |f|
+  .form__group
+    = f.label :name, 'Skill'
+    = f.text_field :name
+
+  = hidden_field_tag :user_id, @user.id
+
+  = f.submit "Save"
