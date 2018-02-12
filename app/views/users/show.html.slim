@@ -8,12 +8,21 @@ table
         = skill.name
       td
         = skill.endorsements_count_by_user(@user.id)
+      td
+        - if current_user == @user
+          = link_to 'X', destroy_skills_path(skill), method: :delete, data: { confirm: 'Are you sure?' }
+        - elsif skill.endorsements.by_endorser(current_user.id).empty?
 
-= form_for :skill, url: '/skills' do |f|
-  .form__group
-    = f.label :name, 'Skill'
-    = f.text_field :name
+          = link_to '+', endorsements_path(skill_name: skill.name, endorsed_user_id: @user.id), method: :post
+        - else
+          = link_to '-', endorsements_path(skill_name: skill.name, endorsed_user_id: @user.id), method: :delete
 
+= form_for :skill, url: '/endorsements', html: { id: :endorse_hidden_form } do |f|
+  = f.hidden_field :name
   = hidden_field_tag :user_id, @user.id
 
-  = f.submit "Save"
+= form_for :skill, url: '/endorsements', method: :delete, html: { id: :remove_endorse_hidden_form } do |f|
+  = f.hidden_field :name
+  = hidden_field_tag :user_id, @user.id
+
+= render partial: 'skills_form'

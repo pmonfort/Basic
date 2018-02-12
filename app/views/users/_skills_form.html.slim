@@ -1,0 +1,9 @@
+= form_tag '/endorsements' do |f|
+  .form__group
+    = label_tag :skill_name, 'Skill'
+    = text_field_tag :skill_name
+    = hidden_field_tag :endorsed_user_id, @user.id
+
+  .form__group
+    = submit_tag "Save"
+

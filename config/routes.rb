@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
   get '/signup' => 'users#new'
 
-  post '/skills' => 'skills#create'
+  post '/endorsements' => 'endorsements#create'
+  delete '/endorsements' => 'endorsements#destroy'
+
+  delete '/skills/:id' => 'skills#destroy', as: :destroy_skills
   resources :users
 end

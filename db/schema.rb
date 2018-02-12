@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 20180211225008) do
 
   create_table "endorsements", force: :cascade do |t|
     t.integer "endorsed_user_id"
-    t.integer "endorsing_user_id"
+    t.integer "endorser_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "skill_id"
