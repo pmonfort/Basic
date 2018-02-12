@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @skills = @user.skills.includes(:endorsements)
   end
 
   def new; end
