@@ -5,7 +5,7 @@ class EndorsementsController < ApplicationController
     if user.add_endorsement(endorsement_params[:skill_name], current_user.id)
       flash[:success] = 'Skill suggested.'
     else
-      flash[:warning] = 'Something went wrong, please try later.'
+      flash[:warning] = 'You already endorse this user for that skill.'
     end
     redirect_to user_path(user)
   end
