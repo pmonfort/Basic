@@ -11,12 +11,12 @@ class User < ActiveRecord::Base
 
   def add_endorsement(name, endorser_user_id)
     slug = name.to_s.gsub('&', ' and ').parameterize
-    skill = skills.find { |skill| skill.slug == slug }
+    skill = skills.find { |s| s.slug == slug }
     skill = Skill.create(name: name, slug: slug) unless skill
 
     return if skill.endorser_by_user?(id, endorser_user_id)
 
-    self.endorsements.create(
+    endorsements.create(
       skill_id: skill.id,
       endorser_user_id: endorser_user_id
     )
@@ -24,13 +24,13 @@ class User < ActiveRecord::Base
 
   def remove_endorsement(name, endorser_user_id)
     slug = name.to_s.gsub('&', ' and ').parameterize
-    skill = skills.find { |skill| skill.slug == slug }
+    skill = skills.find { |s| s.slug == slug }
     return unless skill
 
-    endorsements = self.endorsements.where(
+    user_endorsements = endorsements.where(
       skill_id: skill.id,
       endorser_user_id: endorser_user_id
     )
-    endorsements.each(&:destroy)
+    user_endorsements.each(&:destroy)
   end
 end
