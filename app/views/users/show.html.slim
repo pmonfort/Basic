@@ -11,11 +11,10 @@ table
       td
         - if current_user == @user
           = link_to 'X', destroy_skills_path(skill), method: :delete, data: { confirm: 'Are you sure?' }
-        - elsif skill.endorsements.by_endorser(current_user.id).empty?
-
-          = link_to '+', endorsements_path(skill_name: skill.name, endorsed_user_id: @user.id), method: :post
-        - else
+        - elsif skill.endorser_by_user?(@user.id, current_user.id)
           = link_to '-', endorsements_path(skill_name: skill.name, endorsed_user_id: @user.id), method: :delete
+        - else
+          = link_to '+', endorsements_path(skill_name: skill.name, endorsed_user_id: @user.id), method: :post
 
 = form_for :skill, url: '/endorsements', html: { id: :endorse_hidden_form } do |f|
   = f.hidden_field :name

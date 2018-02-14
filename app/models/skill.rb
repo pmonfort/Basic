@@ -10,4 +10,11 @@ class Skill < ActiveRecord::Base
   def endorsements_count_by_user(user_id)
     endorsements.select{|e| e.endorsed_user_id == user_id}.count
   end
+
+  def endorser_by_user?(endorsed_user_id, endorser_user_id)
+    endorsements.select do |e|
+      e.endorser_user_id == endorser_user_id &&
+      e.endorsed_user_id == endorsed_user_id
+    end.any?
+  end
 end

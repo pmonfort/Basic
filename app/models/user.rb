@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     skill = skills.find { |skill| skill.slug == slug }
     skill = Skill.create(name: name, slug: slug) unless skill
 
-    return unless skill.endorsements.by_endorser(endorser_user_id).empty?
+    return if skill.endorser_by_user?(id, endorser_user_id)
 
     self.endorsements.create(
       skill_id: skill.id,

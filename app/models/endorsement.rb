@@ -6,8 +6,4 @@ class Endorsement < ActiveRecord::Base
   validates_presence_of :skill_id
   validates_presence_of :endorser
   validates_presence_of :endorsed
-
-  def self.by_endorser(endorser_user_id)
-    where(endorser_user_id: endorser_user_id)
-  end
 end
