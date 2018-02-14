@@ -7,7 +7,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @skills = @user.skills.includes(:endorsements)
+    descending = -1
+    @skills = @user.skills.includes(:endorsements).sort_by do |s|
+      s.endorsements_count_by_user(@user.id) * descending
+    end
   end
 
   def new; end
