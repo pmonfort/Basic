@@ -29,6 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'faker'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -42,3 +44,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'slim-rails'
 gem 'rails_warden'
+
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-webkit'
+end
